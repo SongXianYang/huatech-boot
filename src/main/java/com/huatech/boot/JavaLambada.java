@@ -3,5 +3,5 @@ package com.huatech.boot;
 /**
  * @author SongXianYang
  */
-public class JavaLambda {
+public class JavaLambada {
 }
