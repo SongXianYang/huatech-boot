@@ -12,6 +12,11 @@ public class JavaLambda {
         String[] str={"song","xian","yang","hui","liu","guo"};
         stringArray(str);
         anonymousInnerClass(str);
+        //匿名内部类
+        MyTest myTest= ((a, b) -> {
+            return a + b;});
+        int sum = myTest.sum(1, 2);
+        System.out.println(sum);
     }
 
     //采用Java8新特性 遍历数组与List
@@ -46,9 +51,6 @@ public class JavaLambda {
         list.sort((s1,s2)->(s1.compareTo(s2)));
         System.out.println(list);
         System.out.println("-----------------");
-
-
-
     }
 
 }
