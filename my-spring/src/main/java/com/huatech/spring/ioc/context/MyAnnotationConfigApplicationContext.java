@@ -2,9 +2,12 @@ package com.huatech.spring.ioc.context;
 
 import com.huatech.spring.ioc.annotation.MyComponent;
 import com.huatech.spring.ioc.annotation.MyValue;
+import com.huatech.spring.ioc.annotation.MyAutowired;
+import com.huatech.spring.ioc.annotation.MyQualifier;
 import com.huatech.spring.ioc.definition.BeanDefinition;
 import com.huatech.spring.ioc.util.MyTools;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
@@ -19,7 +22,9 @@ import java.util.*;
  **/
 @Slf4j
 public class MyAnnotationConfigApplicationContext {
-    private Map<String, Object> iocMap =new HashMap<>();
+
+    private Map<String, Object> iocMap = new HashMap<>();
+
     public MyAnnotationConfigApplicationContext(String basePackages) {
         //获取包下面的所有类
         Set<Class<?>> classes = MyTools.getClasses(basePackages);
@@ -32,7 +37,7 @@ public class MyAnnotationConfigApplicationContext {
         creteObj(findByMyComponentDefinition(classes));
     }
 
-    public Object getBean(String beanName){
+    public Object getBean(String beanName) {
         return iocMap.get(beanName);
     }
 
@@ -48,7 +53,7 @@ public class MyAnnotationConfigApplicationContext {
             String beanName = beanDefinition.getBeanName();
             //获取对象中的属性数组
             Field[] declaredFields = clazz.getDeclaredFields();
-            Object object= null;
+            Object object = null;
             try {
                 object = clazz.newInstance();
             } catch (InstantiationException e) {
@@ -56,8 +61,6 @@ public class MyAnnotationConfigApplicationContext {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            ;
-
             for (Field declaredField : declaredFields) {
                 //获取带有MyValue的属性
                 MyValue valueAnnotation = declaredField.getAnnotation(MyValue.class);
@@ -74,42 +77,67 @@ public class MyAnnotationConfigApplicationContext {
                         Object var = null;
                         switch (declaredField.getType().getName()) {
                             case "java.lang.Integer":
-                                var=Integer.parseInt(value);
+                                var = Integer.parseInt(value);
                                 break;
                             case "java.lang.String":
-                                    var = value;
-                                    break;
+                                var = value;
+                                break;
                             case "java.lang.Float":
                                 var = Float.parseFloat(value);
                                 break;
                         }
-
                         method.invoke(object, var);
 
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
-                    }
-                    catch (IllegalAccessException e) {
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
                         e.printStackTrace();
                     }
-                    catch (InvocationTargetException e) {
-                        e.printStackTrace();
+                }
+
+                /**
+                 * 自动装载
+                 */
+                //判断属性上是否MyAutowired
+                MyAutowired myAutowired = declaredField.getAnnotation(MyAutowired.class);
+                if (Objects.nonNull(myAutowired)) {
+                    //判断属性上是否MyQualifier
+                    MyQualifier myQualifier = declaredField.getAnnotation(MyQualifier.class);
+                    if (Objects.nonNull(myQualifier)) {
+                        String qualifierValue = myQualifier.value();
+
+                        Object bean = getBean(qualifierValue);
+                        //获取获取带有MyAutowired属性set
+                        String methodName = "set" + declaredField.getName().substring(0, 1).toUpperCase() + declaredField.getName().substring(1);
+                        try {
+                            Method methodAutowired = clazz.getMethod(methodName, declaredField.getType());
+                            methodAutowired.invoke(object, bean);
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                 }
                 //获取
                 //获取属性名称declaredField.getName()
 //                log.info(declaredField.getName());
 //                System.out.println(declaredField.getName());
             }
-            iocMap.put(beanName,object);
+            iocMap.put(beanName, object);
         });
 
     }
 
     /**
      * 获取标有MyComponent这个注解的类      装进Set<BeanDefinition>
-     *
-     *     3、遍历这些类，找出添加了 @Component 注解的类，
+     * <p>
+     * 3、遍历这些类，找出添加了 @Component 注解的类，
      * 获取它的 Class 和对应的 beanName，封装成一个
      * BeanDefinition，存入集合 Set，这个机会就是 IoC 自动
      * 装载的原材料。

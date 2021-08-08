@@ -1,6 +1,8 @@
 package com.huatech.spring.ioc.bean;
 
+import com.huatech.spring.ioc.annotation.MyAutowired;
 import com.huatech.spring.ioc.annotation.MyComponent;
+import com.huatech.spring.ioc.annotation.MyQualifier;
 import com.huatech.spring.ioc.annotation.MyValue;
 import lombok.Data;
 
@@ -16,4 +18,9 @@ public class Cat {
     private Integer id;
     @MyValue("可爱猫猫")
     private String name;
+
+
+    @MyAutowired
+    @MyQualifier("s")
+    private Dog dog;
 }
