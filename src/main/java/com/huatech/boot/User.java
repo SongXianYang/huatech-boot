@@ -13,6 +13,10 @@ public class User {
     private String sex;
     private int wage;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public User(int id, String name, int age, String sex, int wage) {
         this.id = id;
         this.name = name;

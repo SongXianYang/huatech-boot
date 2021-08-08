@@ -21,5 +21,11 @@ public class TestUtil {
 
         Date date2 = DateUtil.date(Calendar.getInstance());
         System.out.println(date2);
+        String i = "2";
+
+
+        if (i.equals("1") || i.equals("2")) {
+            System.out.println(i);
+        }
     }
 }
