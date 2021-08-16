@@ -13,8 +13,15 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MethodAnnotation {
-    //方法的功能名称
+    /**
+     * 方法的功能名称
+     * @return
+     */
     String value();
-    //操作的是那张表
+
+    /**
+     * 操作的是那张表
+     * @return
+     */
     String tableName();
 }

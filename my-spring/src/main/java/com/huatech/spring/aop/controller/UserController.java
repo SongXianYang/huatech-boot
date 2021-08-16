@@ -1,9 +1,14 @@
 package com.huatech.spring.aop.controller;
 
+import com.huatech.spring.aop.service.UserService;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @description:
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 public class UserController {
 
+    @Resource
+    private UserService userService;
 
     @GetMapping("get")
     public User findUser() {
@@ -21,7 +28,10 @@ public class UserController {
         return user;
     }
 
-
+    @GetMapping("save/{id}/{name}")
+    public void save(@PathVariable("id") Integer id,@PathVariable("name") String name) {
+        userService.seve(id, name);
+    }
     class User {
         private int id;
         private String name;

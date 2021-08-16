@@ -1,17 +1,17 @@
 package com.huatech.spring.utils;
 
+import com.huatech.spring.annotation.ClassAnnotation;
+import com.huatech.spring.annotation.MethodAnnotation;
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.huatech.spring.annotation.*;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-
 /**
- * @description: 对象反射的公共方法
+ * @description: 对象反射封装
  * @author: SongXY
  * @create: 2021-08-15 17:16
  **/
@@ -20,7 +20,7 @@ public class ObjReflectionUtil {
     /**
      * 创建类的实例
      * @param ogj
-     * @return
+     * @return object
      * @throws ClassNotFoundException
      */
     public static Object newOgj(Class<?> ogj) throws ClassNotFoundException {
@@ -42,7 +42,7 @@ public class ObjReflectionUtil {
 
 
     /**
-     * 获得类中属性相关的方法
+     * 获得类中属性
      * getField(String name)	获得某个公有的属性对象
      * getFields()	获得所有公有的属性对象
      * getDeclaredField(String name)	获得某个属性对象
@@ -90,7 +90,7 @@ public class ObjReflectionUtil {
     /**
      * 获取标MethodAnnotation注解的方法
      */
-    public static List<Method> getMethod(Class<?> ogj) throws ClassNotFoundException {
+    public static List<Method> getMethodAnnotation(Class<?> ogj) throws ClassNotFoundException {
         Method[] methods = getMethods(ogj);
         ArrayList<Method> list = new ArrayList<>();
         for (Method method : methods) {
