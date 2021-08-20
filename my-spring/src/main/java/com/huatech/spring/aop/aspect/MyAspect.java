@@ -59,8 +59,4 @@ public class MyAspect {
             //如果有数据库即可执行插入日志表log插入
         }
     }
-    @AfterThrowing()
-    private void commit() {
-
-    }
 }

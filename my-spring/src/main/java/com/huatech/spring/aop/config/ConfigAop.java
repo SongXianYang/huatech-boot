@@ -1,5 +1,7 @@
 package com.huatech.spring.aop.config;
 
+import com.huatech.spring.aop.bean.Cat1;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -11,4 +13,5 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 public class ConfigAop {
+
 }

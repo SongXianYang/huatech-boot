@@ -1,5 +1,6 @@
 package com.huatech.spring.aop.controller;
 
+import com.huatech.spring.aop.bean.Cat1;
 import com.huatech.spring.aop.service.UserService;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ import javax.annotation.Resource;
 public class UserController {
 
     @Resource
+    private Cat1 cat1;
+
+    @Resource
     private UserService userService;
 
     @GetMapping("get")
@@ -31,6 +35,11 @@ public class UserController {
     @GetMapping("save/{id}/{name}")
     public void save(@PathVariable("id") Integer id,@PathVariable("name") String name) {
         userService.seve(id, name);
+    }
+
+    @GetMapping("getCat")
+    public void getCat() {
+        cat1.testCat(111,"宋先阳");
     }
     class User {
         private int id;
