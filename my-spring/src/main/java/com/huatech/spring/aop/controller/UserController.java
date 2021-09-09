@@ -1,6 +1,7 @@
 package com.huatech.spring.aop.controller;
 
 import com.huatech.spring.aop.bean.Cat1;
+import com.huatech.spring.aop.bean.UserBean;
 import com.huatech.spring.aop.service.UserService;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,10 @@ public class UserController {
 
     @GetMapping("getCat")
     public void getCat() {
-        cat1.testCat(111,"宋先阳");
+        UserBean bean = new UserBean();
+        bean.setId(1);
+        bean.setName("sxy");
+        userService.test(bean);
     }
     class User {
         private int id;

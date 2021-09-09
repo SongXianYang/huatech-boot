@@ -18,6 +18,8 @@ public class StringMain {
         //替换
         String s1 = name.replaceAll(s,"");
         System.out.println(s1);
-
+        System.out.println(
+                (20+2*9)/4%7
+        );
     }
 }

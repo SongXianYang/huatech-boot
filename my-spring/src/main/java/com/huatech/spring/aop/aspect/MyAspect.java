@@ -45,6 +45,17 @@ public class MyAspect {
 
     @After("annotationMethod()")
     private void log(JoinPoint joinPoint) throws ClassNotFoundException {
+
+        Object[] args = joinPoint.getArgs();
+
+        for (Object arg : args) {
+            System.out.println(arg);
+
+            Class<?> aClass = arg.getClass();
+
+
+        }
+
         //获取目标对象
         Object targetObj =  joinPoint.getTarget();
         //获取到标有MethodAnnotation这个注解的方法
