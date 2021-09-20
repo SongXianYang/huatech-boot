@@ -27,6 +27,9 @@ public class JavaStream {
 
         System.out.println();
 
+
+        List<User> collect = userList.stream().filter(u -> !u.getId().equals(2)).collect(Collectors.toList());
+        System.out.println("collect = " + collect);
 //        //stream 表达式抽取一个字符作为一个集合
 //        List<Integer> ids = userList.stream().map(User::getAge).collect(Collectors.toList());
 //        System.out.println(ids);

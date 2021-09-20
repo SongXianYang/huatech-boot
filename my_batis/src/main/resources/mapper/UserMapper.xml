@@ -5,4 +5,10 @@
     <select id="findAll" resultType="com.huatech.mybatis.entity.User">
         select * from t_user
     </select>
+    <select id="getId" resultType="com.huatech.mybatis.entity.User">
+        select * from t_user where id=#{id,jdbcType=INTEGER}
+    </select>
+    <select id="findAllByParam" resultType="com.huatech.mybatis.entity.User">
+        select * from t_user t where t.name like concat('%',#{inputParam},'%') or t.desc like concat('%',#{inputParam},'%')
+    </select>
 </mapper>

@@ -1,6 +1,10 @@
 package com.huatech.mybatis.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
 
 /**
  * @description: 测试用户
@@ -12,4 +16,8 @@ public class User {
     private Integer id;
     private String name;
     private String age;
+    private String desc;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date updateTime;
+
 }
