@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -17,8 +18,9 @@ public class JavaStream {
     public static void main(String[] args) {
         User user = new User(1, "song", 21, "女", 1000);
         User user2 = new User(2, "song2", 22, "男", 2000);
-        User user3 = new User(3, "song3", 23, "男", 3000);
+        User user3 = new User(3, "song3", 89, "男", 3000);
         User user4 = new User(4, "song4", 24, "女", 4000);
+        User user5 = new User(4, "song4", 9, "女", 4000);
         List<User> userList = new ArrayList();
         userList.add(user2);
         userList.add(user);
@@ -28,8 +30,12 @@ public class JavaStream {
         System.out.println();
 
 
-        List<User> collect = userList.stream().filter(u -> !u.getId().equals(2)).collect(Collectors.toList());
-        System.out.println("collect = " + collect);
+//        List<User> collect = userList.stream().filter(u -> !u.getId().equals(2)).collect(Collectors.toList());
+//        System.out.println("collect = " + collect);
+        //降序
+        List<User> collect = userList.stream().sorted(Comparator.comparing(User::getAge).reversed()).limit(1).collect(Collectors.toList());
+
+        System.out.println(collect.get(0));
 //        //stream 表达式抽取一个字符作为一个集合
 //        List<Integer> ids = userList.stream().map(User::getAge).collect(Collectors.toList());
 //        System.out.println(ids);
