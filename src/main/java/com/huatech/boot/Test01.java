@@ -17,9 +17,16 @@ public class Test01 {
         string = "1";
         System.out.println(integer.equals(Integer.parseInt(string)));
         System.out.println(testNullable(9999));
+        testInt();
     }
 
     private static Integer testNullable(@NonNull int i) {
         return i;
+    }
+
+    private static void testInt() {
+        int c[]={};
+        c[0] = 1;
+        System.out.println(c);
     }
 }

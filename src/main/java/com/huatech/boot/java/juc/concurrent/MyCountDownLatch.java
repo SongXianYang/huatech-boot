@@ -12,11 +12,13 @@ public class MyCountDownLatch {
         CountDownLatch countDownLatch = new CountDownLatch(10);
         for (int i = 1, size = 10; i <= size; i++) {
             new Thread(()->{
-                System.out.println(Thread.currentThread().getName()+"Go----");
-                countDownLatch.countDown();
+                synchronized (MyCountDownLatch.class) {
+                    System.out.println(Thread.currentThread().getName()+"Go----");
+                    countDownLatch.countDown(); //他做减减操作
+                }
             },"线程"+i).start();
         }
-        countDownLatch.await();
+        countDownLatch.await();//等上面执行完了才会执行下面的代码
 
         System.out.println("递减完了执行下面的代码");
     }

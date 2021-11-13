@@ -21,6 +21,9 @@ public class UserInterceptor implements HandlerInterceptor {
 
 
     @Override
+    /**
+     * preHandle：在业务处理器处理请求之前被调用。预处理，可以进行编码、安全控制、权限校验等处理；
+     */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         HttpSession httpSession = request.getSession();
@@ -34,7 +37,7 @@ public class UserInterceptor implements HandlerInterceptor {
         }else {
             log.info("已存储的用户02" + onLineUsers);
             log.info("未进入判断，进行重定向");
-            httpSession.removeAttribute("user");
+//            httpSession.removeAttribute("user");
             response.sendRedirect("/loginerror");
             return false;
         }
