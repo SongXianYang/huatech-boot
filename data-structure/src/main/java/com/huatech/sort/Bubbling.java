@@ -10,17 +10,20 @@ import java.util.Arrays;
  **/
 public class Bubbling {
     public static void main(String[] args) {
-        int[] array = {10, 5, -1, 9, 30, 83, -4};
+        int[] array = {10, 5, -1, 9, -4, 30, 83};
 
+        //定义一个标识
+        Boolean flag = false;
 
         //第一趟排序
         //j表示你循环趟数-1
-        for (int j = 0, sizeNext = array.length-1; j < sizeNext; j++) {
+        for (int j = 0, sizeNext = array.length - 1; j < sizeNext; j++) {
             //i=元素个数
             //array.length-j-1 表示：总长度-排序的个数-趟数
             //第一趟 当前的
             //第二趟 j=1表示第二趟   长度-1
-            for (int i = 0, size = sizeNext-j; i < size; i++) {
+            for (int i = 0, size = sizeNext - j; i < size; i++) {
+
                 //下一个索引下标
                 int tmp = i + 1;
                 //获取当前值  当前值我们就不会去替换位置  所以用不上这个
@@ -29,12 +32,21 @@ public class Bubbling {
                 int next = array[tmp];
 
                 if (array[i] > array[tmp]) {
+                    flag = true;
                     //替换位置
+
                     array[tmp] = array[i];
                     array[i] = next;
                 }
             }
+            if (flag) {
+                flag = false;
+            } else {
+                break;
+            }
+
         }
         System.out.println(Arrays.toString(array));
+        //System.out.println("newArray = " + Arrays.toString(newArray));
     }
 }
