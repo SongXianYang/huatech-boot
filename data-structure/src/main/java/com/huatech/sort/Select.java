@@ -14,8 +14,7 @@ public class Select {
         for (int j = 0, size = arr.length - 1; j < size; j++) {
             //定义下一个最小数下标
             int min = j;
-            //获取到下一个最小数
-            int oneNum = arr[j];
+
             //第一轮选出最小的排在第一位
             for (int i = 0, sizeNum = size-j; i < sizeNum; i++) {
                 int iNum=i+1;
@@ -24,7 +23,9 @@ public class Select {
                     min = i;
                 }
                 //两个值不能相同 相等的时候还交换就没意义了
-                if (min != iNum) {
+                if (min != j) {
+                    //获取到下一个最小数
+                    int oneNum = arr[j];
                     arr[j] = arr[min];
                     arr[min] = oneNum;
                 }
