@@ -28,8 +28,8 @@ public class EsUser {
     private String age;
     @Field(analyzer = "ik_max_word",type = FieldType.Text)
     private String desc;
-    @Field(name = "update_time",type = FieldType.Date, format = DateFormat.custom)
-//            pattern = "yyyy-MM-dd HH:mm:ss||yyyy-mm-dd||epoch_millis||yyyy-MM-dd'T'HH:mm:ssZ"
+    @Field(name = "update_time",type = FieldType.Date, format = DateFormat.custom,
+            pattern = "yyyy-MM-dd HH:mm:ss||yyyy-mm-dd||epoch_millis||yyyy-MM-dd'T'HH:mm:ssZ")
 
 
     private Date updateTime;
